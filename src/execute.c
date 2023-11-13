@@ -118,7 +118,7 @@ void exec_pipe(struct cmdline *l) {
 }
 
 void exec_mult_pipe(struct cmdline *l) {
-    int num_cmds = 0, i;
+    int i, num_cmds = 0;
 
     handle_in(l->in);
     while (l->seq[num_cmds] != NULL) {
@@ -129,7 +129,7 @@ void exec_mult_pipe(struct cmdline *l) {
 
     for (i = 0; i < num_cmds - 1; i++) {
         if (pipe(pipes[i]) == -1) {
-            perror("pipe");
+            perror("Error in opening the pipe");
             exit(EXIT_FAILURE);
         }
     }
@@ -137,7 +137,7 @@ void exec_mult_pipe(struct cmdline *l) {
     for (i = 0; i < num_cmds; i++) {
         pid_t pid = fork();
         if (pid == -1) {
-            perror("fork");
+            perror("Error in fork call");
             exit(EXIT_FAILURE);
         }
 
@@ -178,6 +178,9 @@ void exec_mult_pipe(struct cmdline *l) {
 void execute(struct cmdline *l) {
     if (!l->seq[1])
         exec_cmd(l);
-    else
+    else if (!l->seq[2]) {
         exec_pipe(l);
+    }
+    else
+        exec_mult_pipe(l);
 }

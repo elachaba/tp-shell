@@ -110,7 +110,7 @@ void mark_job_completed(pid_t pid) {
     struct bg_process *current = JOBS;
     while (current != NULL) {
         if (current->pid == pid) {
-            current->flag = 1;  // Mark as completed
+            current->flag = DONE;  // Mark as completed
             return;
         }
         current = current->next;
