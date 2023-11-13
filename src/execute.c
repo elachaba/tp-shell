@@ -117,9 +117,62 @@ void exec_pipe(struct cmdline *l) {
     }
 }
 
-void exec_mult_pipe(struct cmdline *l)
-{
-    
+void exec_mult_pipe(struct cmdline *l) {
+    int num_cmds = 0, i;
+
+    handle_in(l->in);
+    while (l->seq[num_cmds] != NULL) {
+        num_cmds++;
+    }
+
+    int pipes[num_cmds - 1][2]; // Array to hold the pipe file descriptors
+
+    for (i = 0; i < num_cmds - 1; i++) {
+        if (pipe(pipes[i]) == -1) {
+            perror("pipe");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    for (i = 0; i < num_cmds; i++) {
+        pid_t pid = fork();
+        if (pid == -1) {
+            perror("fork");
+            exit(EXIT_FAILURE);
+        }
+
+        if (pid == 0) { // Child process
+            if (i > 0) {
+                dup2(pipes[i - 1][0], STDIN_FILENO); // Connect input to the previous pipe
+            }
+            if (i < num_cmds - 1) {
+                dup2(pipes[i][1], STDOUT_FILENO); // Connect output to the next pipe
+            }
+            else
+                handle_out(l->out);
+
+            // Close all pipe file descriptors
+            for (int j = 0; j < num_cmds - 1; j++) {
+                close(pipes[j][0]);
+                close(pipes[j][1]);
+            }
+
+            execvp(l->seq[i][0], l->seq[i]);
+            perror("Error executing the command");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Parent process: close all pipe file descriptors
+    for (i = 0; i < num_cmds - 1; i++) {
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+    }
+
+    // Wait for all child processes to finish
+    for (i = 0; i < num_cmds; i++) {
+        wait(NULL);
+    }
 }
 
 void execute(struct cmdline *l) {
