@@ -1,7 +1,0 @@
-/home/elachaba/2A/Semester_1/SEPC/ensimag-shell/cmake-build-debug/CMakeFiles/ensishell.dir
-/home/elachaba/2A/Semester_1/SEPC/ensimag-shell/cmake-build-debug/CMakeFiles/check.dir
-/home/elachaba/2A/Semester_1/SEPC/ensimag-shell/cmake-build-debug/CMakeFiles/package.dir
-/home/elachaba/2A/Semester_1/SEPC/ensimag-shell/cmake-build-debug/CMakeFiles/package_source.dir
-/home/elachaba/2A/Semester_1/SEPC/ensimag-shell/cmake-build-debug/CMakeFiles/test.dir
-/home/elachaba/2A/Semester_1/SEPC/ensimag-shell/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/elachaba/2A/Semester_1/SEPC/ensimag-shell/cmake-build-debug/CMakeFiles/rebuild_cache.dir

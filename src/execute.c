@@ -176,6 +176,8 @@ void exec_mult_pipe(struct cmdline *l) {
 }
 
 void execute(struct cmdline *l) {
+    if (!l->seq[0])
+        return;
     if (!l->seq[1])
         exec_cmd(l);
     else if (!l->seq[2]) {

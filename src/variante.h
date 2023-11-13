@@ -2,7 +2,7 @@
 #define VARIANTE_H
 
 #define LOGINS Aymane_EL_ACHAB_elachaba_Youssef_ELMARJOU_elmarjoy
-#define SUJET 10
+#define SUJET 6
 #define USE_GUILE 1
 #define USE_GNU_READLINE 1
 

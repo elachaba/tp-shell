@@ -59,7 +59,8 @@ void terminate(char *line) {
 	clear_history();
 #endif
 	if (line)
-	  free(line);
+        free(line);
+    free_job_list();
 	printf("exit\n");
 	exit(0);
 }

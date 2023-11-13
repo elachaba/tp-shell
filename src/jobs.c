@@ -5,7 +5,6 @@
 
 struct bg_process * JOBS = NULL;
 
-
 char *listToString(char ***seq) {
     int cmdLen = 0;
 
